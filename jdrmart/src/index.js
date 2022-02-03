@@ -13,8 +13,10 @@ ReactDOM.render(
   <div className='App-header'><Header/></div>
 
         <App />
-    <div className='App-footer'/> <Footer/></div>   
-  
+    <div className='App-footer'> <Footer/></div>   
+    
+    
+  </div>
   ,
   document.getElementById('root')
 );

@@ -1,8 +1,8 @@
-
-export const Table = ({ cols, data}) => {
+import { Table } from 'react-bootstrap';
+export const Table1 = ({ cols, data}) => {
     return (
         <div >
-        <table>
+        <Table>
             <thead>
                 <tr>
                     {cols.map((headerItem, index) => (
@@ -16,7 +16,7 @@ export const Table = ({ cols, data}) => {
               })
             }
             </tbody>
-        </table>
+        </Table>
     </div>
     )
 }

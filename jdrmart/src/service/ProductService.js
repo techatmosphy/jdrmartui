@@ -1,39 +1,39 @@
 import { baseURL } from "../AppConstants";
-import { CATEGORY_CREATED, FAILURE_RESPONSE } from "../AppConstants";
+import { PRODUCT_CREATED, FAILURE_RESPONSE } from "../AppConstants";
 
-export async  function getCategories() {
-    let categories = []
-    await  fetch(baseURL+'/category')
+export async  function getProducts() {
+    let products = []
+    await  fetch(baseURL+'/product')
     .then((res) => res.json())
-    .then((categoriesRes) => {
-     //   console.log("categoriesRes ::",categoriesRes)
+    .then((productsRes) => {
+     //  console.log("categories ::: ",categories)
 
-        categories.push(categoriesRes)
-        console.log("categories ::: ",categories[0])
+     products.push(productsRes)
+        console.log("products ::: ",products[0])
     })
        .catch(error => {
             console.error("error : ", error);
 
         })
       //  console.log("categories ::: ",categories)
-    return categories[0];
+    return products[0];
 }
 
-export async function createCategoryService(Category) {
-    console.log("createCategoryService :: ",Category)
-   await fetch(baseURL+'/category', {
+export async function createProductService(Product) {
+    console.log("createProductService :: ",Product)
+   await fetch(baseURL+'/product', {
         method: 'post',
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
             //'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify(Category)
+        body: JSON.stringify(Product)
     })
     .then(
         response =>{
             if(response.ok){
-                return CATEGORY_CREATED;
+                return PRODUCT_CREATED;
             }
             else{
                 return FAILURE_RESPONSE

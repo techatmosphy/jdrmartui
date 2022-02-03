@@ -25,12 +25,13 @@
 }
 
 .App-footer {
-  background-color: #282c34;
-  position: absolute;
+  background-color: #342c28;
+  position: fixed;
   bottom:0;
   left:0;
   right:0;
 }
+
 .App-link {
   color: #61dafb;
 }

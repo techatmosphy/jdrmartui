@@ -3,8 +3,9 @@ import { Button, Modal } from 'react-bootstrap';
 import { createCategoryService } from '../service/CategoryService';
 import '../App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Form } from 'react-bootstrap';
 import { CategoryModal } from '../modals/CategoryModal';
-
+import { CATEGORY_CREATED, FAILURE_RESPONSE } from "../AppConstants";
 
 export default class CreateCategory extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class CreateCategory extends React.Component {
     this.state = {
       show: props.show,
       categoryModal: CategoryModal,
+      message: ""
 
     }
   }
@@ -27,8 +29,12 @@ export default class CreateCategory extends React.Component {
           <Modal.Body>
 
             <div>
-
-              <form onSubmit={this.handleSubmit}>
+               {this.state.message}
+              <form onSubmit={this.createCategory}>
+              <label>
+                  CategoryCode:
+                  <input value={this.state.categoryModal.categoryCode} onChange={this.handleChangeCatCode} />
+                </label>
                 <label>
                   Name:
                   <input value={this.state.categoryModal.name} onChange={this.handleChangeName} />
@@ -60,52 +66,59 @@ export default class CreateCategory extends React.Component {
       </div>
     )
   }
+  handleChangeCatCode = (event) => {
+    this.setState(prevState => ({
+      categoryModal:{
+        ...prevState.categoryModal,
+        categoryCode: event.target.value
+      }
+    }));
+  }
   handleChangeName = (event) => {
-    this.setState({
-      categoryModal: {
+    this.setState(prevState => ({
+      categoryModal:{
+        ...prevState.categoryModal,
         name: event.target.value
       }
-    });
+    }));
   }
   handleChangeDescription = (event) => {
-    this.setState({
-      categoryModal: {
+    this.setState(prevState => ({
+      categoryModal:{
+        ...prevState.categoryModal,
         description: event.target.value
       }
-    });
+    }));
   }
   handleChangeValidFrom = (event) => {
-    this.setState({
-      categoryModal: {
+    this.setState(prevState => ({
+      categoryModal:{
+        ...prevState.categoryModal,
         validFrom: event.target.value
       }
-    });
+    }));
   }
   handleChangeValidTill = (event) => {
-    this.setState({
-      categoryModal: {
+    this.setState(prevState => ({
+      categoryModal:{
+        ...prevState.categoryModal,
         validTill: event.target.value
       }
-    });
+    }));
   }
   
 
 
-  createCategory = (event) => {
-    console.log("In createCategory --- CreateCategory")
+   createCategory = async (event) => {
+   
     event.preventDefault();
-    //const name = event.target.elements.name.value;
-    //const description = event.target.elements.description.value;
-   // const validFrom = event.target.elements.validFrom.value;
-   // const validTill = event.target.elements.validTill.value;
-    // creating item json with form values
-    const category = {
-      //name: this.state.name,
-      //description: description,
-      //validFrom: validFrom,
-      //validTill: validTill
-    }
-    createCategoryService(category);
+    console.log("create category .....")
+    const response= await createCategoryService(this.state.categoryModal);
+    console.log("response ::: ",response)
+    this.setState({
+      message : response
+    })
+   
   }
 
 }

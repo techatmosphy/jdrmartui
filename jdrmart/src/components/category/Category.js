@@ -1,7 +1,7 @@
 import React from 'react';
 import { CategoryModal } from '../../modals/CategoryModal';
 import { getCategories } from '../../service/CategoryService';
-import { Table } from '../../reusableComponents/Table';
+import { Table1 } from '../../reusableComponents/Table';
 import { Button } from 'react-bootstrap';
 import CreateCategory from '../../reusableComponents/CreateCategory';
 import Container from 'react-bootstrap/Container';
@@ -15,7 +15,8 @@ export default class Category extends React.Component {
         this.state = {
             categoryModal: CategoryModal,
             categories: [CategoryModal],
-            showCreateCategory: false
+            showCreateCategory: false,
+            showTable : true
 
         }
         //  this.handleChange = this.handleChange.bind(this);
@@ -23,8 +24,12 @@ export default class Category extends React.Component {
 
     }
 
-    componentDidMount() {
-        this.state.categories = getCategories();
+    async   componentDidMount() {
+        let categories = await getCategories();
+      this.setState({
+          categories :categories
+      })
+      console.log("state :: ",this.state.categories)
     }
 
     handleShowCreateCategory = () => {
@@ -32,12 +37,12 @@ export default class Category extends React.Component {
     }
     render() {
         const columns = Object.keys(this.state.categories[0]);
-
+        console.log("columns ::",columns)
         return (<div>
-            <div>
-                {this.state.showTable && <Table cols={columns} data={this.state.categories} />}
+       
+       <div>
+                {this.state.showTable && <Table1 cols={columns} data={this.state.categories} />}
             </div>
-
             <div>
                 {this.state.showCreateCategory && <CreateCategory show={true} />}
             </div>
@@ -55,11 +60,7 @@ export default class Category extends React.Component {
                 </Row>
 
             </Container>
-            <div
-                style={{ position: "fixed", left: 0, bottom: 0, right: 0, backgroundColor: "red" }}
-            >
-                footer
-            </div>
+          
 
         </div>)
     }
