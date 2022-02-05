@@ -1,6 +1,6 @@
 import React from "react";
 import { ProductModal } from '../../modals/ProductModal';
-import { getProducts} from '../../service/ProductService';
+import { getProducts } from '../../service/ProductService';
 import { Table1 } from '../../reusableComponents/Table';
 import { Button } from 'react-bootstrap';
 import CreateProduct from '../../reusableComponents/CreateProduct';
@@ -14,20 +14,16 @@ export default class Product extends React.Component {
             productModal: ProductModal,
             products: [ProductModal],
             showCreateProduct: false,
-            showTable : true
-
+            showTable: true
         }
-        //  this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
-    async   componentDidMount() {
+    async componentDidMount() {
         let products = await getProducts();
-      this.setState({
-        products :products
-      })
-      console.log("state :: ",this.state.products)
+        this.setState({
+            products: products
+        })
+        console.log("state :: ", this.state.products)
     }
 
     handleShowCreateProduct = () => {
@@ -35,10 +31,10 @@ export default class Product extends React.Component {
     }
     render() {
         const columns = Object.keys(this.state.products[0]);
-        console.log("columns ::",columns)
+        console.log("columns ::", columns)
         return (<div>
-       
-       <div>
+
+            <div>
                 {this.state.showTable && <Table1 cols={columns} data={this.state.products} />}
             </div>
             <div>
@@ -50,7 +46,7 @@ export default class Product extends React.Component {
                     Add Product
                 </Button>
             </div>
-           
+
             <div
                 style={{ position: "fixed", left: 0, bottom: 0, right: 0, backgroundColor: "red" }}
             >
@@ -66,10 +62,5 @@ export default class Product extends React.Component {
                 name: event.target.value
             }
         });
-    }
-
-    handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.productModal.name);
-        event.preventDefault();
     }
 }

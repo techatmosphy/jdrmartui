@@ -6,6 +6,7 @@ import {HashRouter, Route, Link, Routes,BrowserRouter} from "react-router-dom";
 import Category from './components/category/Category';
 import Dashboard from './components/category/Dashboard';
 import Product from './components/products/Product';
+import Billing from './components/billing/Billing';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/category" element={<Category />} />
         <Route path="/products" element={<Product/>}/>
+        <Route path="/billing" element={<Billing/>}/>
        </Routes>
       </HashRouter>
   );

@@ -1,8 +1,8 @@
 export const CategoryModal = {
-    id: 0,
-    name: '',
+    category_id: 0,
+    categoryCode: '',
     description: '',
-    createdDate: '',
+    name: '',
     updatedDate: '',
     validFrom: '',
     validTill: '',

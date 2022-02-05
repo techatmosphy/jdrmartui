@@ -2,6 +2,7 @@ import React from 'react';
 import Category from './Category';
 import Product from '../products/Product';
 import { Button, Container, Row, Col } from 'react-bootstrap';
+import Billing from '../billing/Billing';
 
 export default class Dashboard extends React.Component {
 
@@ -11,7 +12,8 @@ export default class Dashboard extends React.Component {
         this.state = {
             message: 'this is Dashboard page...',
             showCategory: false,
-            showProduct: false
+            showProduct: false,
+            showBilling: false
 
         }
 
@@ -37,11 +39,17 @@ export default class Dashboard extends React.Component {
                                         Products
                                     </Button></span>
                                 </Row>
+                                <Row>
+                                    <span>  <Button variant="primary" onClick={this.handleShowBilling} className="custom-btn">
+                                        Billing
+                                    </Button></span>
+                                </Row>
                             </Container>
                         </div>
                         </Col>
                         <Col > {this.state.showCategory && <Category />}
                             {this.state.showProduct && <Product />}
+                            {this.state.showBilling && <Billing />}
                         </Col>
                     </Row>
                 </Container>
@@ -52,13 +60,23 @@ export default class Dashboard extends React.Component {
     handleShowCategory = () => {
         this.setState({
             showCategory: true,
-            showProduct: false
+            showProduct: false,
+            showBilling: false
         })
     }
     handleShowProduct = () => {
         this.setState({
             showCategory: false,
-            showProduct: true
+            showProduct: true,
+            showBilling : false
+        })
+
+    }
+    handleShowBilling = () => {
+        this.setState({
+            showCategory: false,
+            showProduct: false,
+            showBilling: true
         })
 
     }

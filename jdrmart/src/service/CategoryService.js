@@ -3,21 +3,20 @@ import { RECORD_CREATED,RECORD_UPDATED, FAILURE_RESPONSE } from "../AppConstants
 
 const path = '/categories';
 export async  function getCategories() {
-    let categories = []
+    let categories;
     await  fetch(baseURL+path)
     .then((res) => res.json())
     .then((categoriesRes) => {
-        categories.push(categoriesRes.data)
-    })
+        categories = categoriesRes.data;
+     })
        .catch(error => {
             console.error("error : ", error);
 
         })
-    return categories[0];
+        return categories;
 }
 
 export async function createCategoryService(Category) {
-    console.log("createCategoryService :: ",Category)
    await fetch(baseURL+path, {
         method: 'post',
         headers: {

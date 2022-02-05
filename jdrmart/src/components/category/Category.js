@@ -15,7 +15,7 @@ export default class Category extends React.Component {
 
         this.state = {
             categoryModal: CategoryModal,
-            categories: [CategoryModal],
+            categories: [],
             showCreateCategory: false,
             showTable: true,
             showEditCategory: false,
@@ -28,18 +28,19 @@ export default class Category extends React.Component {
     }
 
     async componentDidMount() {
-        let categories = await getCategories();
-        this.setState({
-            categories: categories
-        })
-        console.log("state :: ", this.state.categories)
+        await getCategories().then(categories =>{
+            this.setState({
+                categories: categories
+            })
+        });
     }
+
 
     handleShowCreateCategory = () => {
         this.setState({ showCreateCategory: !this.state.showCreateCategory })
     }
     render() {
-        const columns = Object.keys(this.state.categories[0]);
+        const columns = Object.keys(CategoryModal);
         return (<div>
 
             <div>
@@ -121,7 +122,7 @@ export default class Category extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((category,rowId) => {
+                        {data != undefined && data.length > 0 && data.map((category,rowId) => {
                             return <tr key={rowId} onClick={() =>
                                 this.handleEditOrDelete(category,rowId)} className={this.state.highLightSelectedRow === rowId ? "tableSelected" : ""}>
                                     {cols.map(col => <td>{category[col]}</td>)}</tr>

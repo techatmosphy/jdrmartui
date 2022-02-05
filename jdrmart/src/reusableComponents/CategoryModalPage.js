@@ -139,17 +139,16 @@ export default class CategoryModalPage extends React.Component {
 
 
   createCategory = async () => {
-    console.log("create category .....")
-    const response = await createCategoryService(this.state.categoryModal);
-    console.log("response ::: ", response)
-    this.setState({
-      message: response
-    })
+    const response = await createCategoryService(this.state.categoryModal)
+    .then(message => {
+      this.setState({
+        message: message
+      })
+    });
 
   }
 
   updateCategory = async () => {
-    console.log("update category .....")
     await updateCategoryService(this.state.categoryModal)
       .then(message => {
         console.log("message :: ", message)
