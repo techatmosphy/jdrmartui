@@ -1,7 +1,7 @@
 import React from 'react';
 import Category from './Category';
 import Product from '../products/Product';
-import { Button } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 
 export default class Dashboard extends React.Component {
 
@@ -21,17 +21,31 @@ export default class Dashboard extends React.Component {
         return (<div>
 
             <div>
-            <span> 
-                <Button variant="primary" onClick={this.handleShowCategory}>
-                    Categories
-                </Button>
-                </span>
-                <span>  <Button variant="primary" onClick={this.handleShowProduct}>
-                    Products
-                </Button></span>
+                <Container fluid>
+                    <Row>
+                        <Col xs={2}><div id="leftmenu">
+                            <Container fluid>
+                                <Row>
+                                    <span>
+                                        <Button variant="primary" onClick={this.handleShowCategory} className="custom-btn">
+                                            Categories
+                                        </Button>
+                                    </span>
+                                </Row>
+                                <Row>
+                                    <span>  <Button variant="primary" onClick={this.handleShowProduct} className="custom-btn">
+                                        Products
+                                    </Button></span>
+                                </Row>
+                            </Container>
+                        </div>
+                        </Col>
+                        <Col > {this.state.showCategory && <Category />}
+                            {this.state.showProduct && <Product />}
+                        </Col>
+                    </Row>
+                </Container>
             </div>
-            {this.state.showCategory && <Category />}
-            {this.state.showProduct && <Product />}
         </div>)
     }
 

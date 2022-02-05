@@ -1,5 +1,5 @@
 import { Table } from 'react-bootstrap';
-export const Table1 = ({ cols, data}) => {
+export const Table1 = ({ cols, data},handleEdit) => {
     return (
         <div >
         <Table>
@@ -12,11 +12,15 @@ export const Table1 = ({ cols, data}) => {
             </thead>
             <tbody>
             { data.map(category => {
-                return <tr>{ cols.map(col => <td>{category[col]}</td>) }</tr>
+                return <tr  onClick={() => handleEdit(category)}>{ cols.map(col => <td>{category[col]}</td>) }</tr>
               })
             }
             </tbody>
         </Table>
     </div>
     )
+}
+
+function testEdit(){
+    alert("hiiii ")
 }

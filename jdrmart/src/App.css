@@ -57,3 +57,41 @@
   margin-right: 4px;
   margin-left: 4px;
 }
+
+
+.tableSelected {
+  background-color: rgb(176, 192, 116);
+}
+
+.formElement{ 
+  margin-bottom: 6px; 
+  margin-right: 2px;
+}
+
+.display-success
+{
+border: 1px solid #D8D8D8;
+padding: 10px;
+border-radius: 5px;
+font-family: Arial;
+font-size: 11px;
+text-transform: uppercase;
+background-color: rgb(236, 255, 216);
+color: green;
+text-align: center;
+margin-top: 30px;
+}
+
+.display-error
+{
+border: 1px solid #D8D8D8;
+padding: 10px;
+border-radius: 5px;
+font-family: Arial;
+font-size: 11px;
+text-transform: uppercase;
+background-color: rgb(236, 255, 216);
+color: red;
+text-align: center;
+margin-top: 30px;
+}
