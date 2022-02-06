@@ -1,48 +1,86 @@
 import { baseURL } from "../AppConstants";
-import { PRODUCT_CREATED, FAILURE_RESPONSE } from "../AppConstants";
+import { RECORD_CREATED,RECORD_UPDATED, FAILURE_RESPONSE } from "../AppConstants";
+
+const path="/products"
 
 export async  function getProducts() {
-    let products = []
-    await  fetch(baseURL+'/product')
+    let products;
+    await  fetch(baseURL+path)
     .then((res) => res.json())
     .then((productsRes) => {
-     //  console.log("categories ::: ",categories)
-
-     products.push(productsRes)
-        console.log("products ::: ",products[0])
-    })
+        products = productsRes.data;
+     })
        .catch(error => {
             console.error("error : ", error);
 
         })
-      //  console.log("categories ::: ",categories)
-    return products[0];
+        return products;
 }
 
-export async function createProductService(Product) {
-    console.log("createProductService :: ",Product)
-   await fetch(baseURL+'/product', {
+export async function createProductService(product) {
+    console.log("createProductService :: ",product)
+    let message="";
+    await fetch(baseURL+path, {
         method: 'post',
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
             //'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify(Product)
+        body: JSON.stringify(product)
     })
     .then(
         response =>{
-            if(response.ok){
-                return PRODUCT_CREATED;
+            if(response.status == 201){
+                message = RECORD_CREATED;
             }
             else{
-                return FAILURE_RESPONSE
+                message = FAILURE_RESPONSE
             }
         }
     )
-      //  .then(response => response.json())
-        //.then(message =>
-          //  console.log("Message :: ",message)
-            //)
-
+    return message;
 }
+
+export async function updateProductService(product) {
+    let message = ""
+    await fetch(baseURL+path, {
+         method: 'put',
+         headers: {
+             Accept: "application/json",
+             "Content-Type": "application/json"
+             //'Access-Control-Allow-Origin': '*'
+         },
+         body: JSON.stringify(product)
+     })
+     .then(
+         response =>{
+             if(response.status == 200){ 
+                 message = RECORD_UPDATED;
+             }
+             else{
+                 message = FAILURE_RESPONSE
+             }
+         }
+     )
+     return message;
+ }
+ export async  function deleteProductService(productId) {
+     let message = "";
+     await  fetch(baseURL+path+'/'+productId,{
+         method : 'delete'
+     })
+     .then((res) => res.json())
+     .then(
+        response =>{
+            if(response.status == 200){ 
+                message = RECORD_UPDATED;
+            }
+            else{
+                message = FAILURE_RESPONSE
+            }
+        }
+    )
+    return message;
+    
+ }

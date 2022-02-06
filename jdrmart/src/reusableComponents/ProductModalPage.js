@@ -6,9 +6,9 @@ import '../App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from 'react-bootstrap';
 import { ProductModal } from '../modals/ProductModal';
-import { PRODUCT_CREATED, FAILURE_RESPONSE } from "../AppConstants";
+import { CATEGORY_CREATED, FAILURE_RESPONSE, RECORD_CREATED, RECORD_UPDATED } from "../AppConstants";
 
-export default class CreateProduct extends React.Component {
+export default class ProductModalPage extends React.Component {
   constructor(props) {
     super();
     this.state = {
@@ -23,6 +23,7 @@ export default class CreateProduct extends React.Component {
   }
 
   render() {
+    const message = this.state.message;
     return (
       <div>
         <Modal show={this.state.show} onHide={() => this.handleModal()}>
@@ -30,7 +31,11 @@ export default class CreateProduct extends React.Component {
           <Modal.Body>
 
             <div>
-              {this.state.message}
+            <div id="message" className={message == ""? "" :(message === RECORD_CREATED ||
+               message === RECORD_UPDATED)
+                ? 'display-success' : 'display-error'}>
+                {this.state.message}
+              </div>
               <Form onSubmit={this.createProduct}>
                 <label>
                   ProductId:
@@ -66,7 +71,7 @@ export default class CreateProduct extends React.Component {
                 </label>
                 <label>
                   Category:
-                  <input value={this.state.productModal.category} onChange={this.handleChangeCategory} />
+                  <input value={this.state.productModal.categoryId} onChange={this.handleChangeCategory} />
                 </label>
                 <label>
                   ValidFrom:
@@ -160,7 +165,7 @@ export default class CreateProduct extends React.Component {
     this.setState(prevState => ({
       productModal: {
         ...prevState.productModal,
-        category: event.target.value
+        categoryId: event.target.value
       }
     }));
   }
@@ -187,12 +192,11 @@ export default class CreateProduct extends React.Component {
   createProduct = async (event) => {
 
     event.preventDefault();
-    console.log("create product .....")
-    const response = await createProductService(this.state.productModal);
-    console.log("response ::: ", response)
-    this.setState({
-      message: response
-    })
+    await createProductService(this.state.productModal)
+    .then(message => this.setState({
+      message: message
+    }));
+
 
   }
 

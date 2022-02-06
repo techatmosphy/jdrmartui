@@ -1,6 +1,6 @@
 export const ProductModal = {
 
-    productId: '',
+    productId: 0,
     name: '',
     description: '',
     price: '',
@@ -8,11 +8,11 @@ export const ProductModal = {
     gtin: '',
     offerId: '',
     brand: "",
-    category: null,
-    createdDate: "2021-12-31T18:30:00.000+00:00",
-    updatedDate: "2021-12-31T18:30:00.000+00:00",
+    categoryId: 0,
+    createdDate: "",
+    updatedDate: "",
     validFrom: "",
     validTill: "",
-    createdBy: "LEE",
-    lastUpdatedBy: "LEE"
+    createdBy: "",
+    lastUpdatedBy: ""
 }
