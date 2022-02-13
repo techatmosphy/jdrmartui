@@ -2,22 +2,20 @@ import logo from './logo.svg';
 import './App.css';
 import {HashRouter, Route, Link, Routes,BrowserRouter} from "react-router-dom";
 
-
-import Category from './components/category/Category';
-import Dashboard from './components/category/Dashboard';
-import Product from './components/products/Product';
-import Billing from './components/billing/Billing';
+import Products from './pages/Products';
+import Billing from './pages/Billing';
+import Categories from './pages/Cartegories';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
     <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/products" element={<Product/>}/>
+        <Route path="/" element={<Categories/>} />
+        <Route path="/categories" element={<Categories/>} />
+        <Route path="/products" element={<Products/>}/>
         <Route path="/billing" element={<Billing/>}/>
        </Routes>
-      </HashRouter>
+      </BrowserRouter>
   );
 }
 

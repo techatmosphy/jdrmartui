@@ -3,7 +3,7 @@ export const ProductModal = {
     productId: 0,
     name: '',
     description: '',
-    price: '',
+    price: Number,
     quantity:'' ,
     gtin: '',
     offerId: '',

@@ -6,6 +6,9 @@ import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import ProductModalPage from '../../reusableComponents/ProductModalPage';
 
+
+
+
 export default class Prodcut extends React.Component {
 
     constructor(props) {
@@ -18,7 +21,7 @@ export default class Prodcut extends React.Component {
             showCreateProduct: false,
             showTable: true,
             showEditProduct: false,
-            productToEditOrDelete : ProductModal,
+            productToEditOrGenerateBarCodeOrDelete : ProductModal,
             highLightSelectedRow : -1
 
         }
@@ -52,7 +55,7 @@ export default class Prodcut extends React.Component {
                 {this.state.showCreateProduct && <ProductModalPage show={true} />}
             </div>
             <div>
-                {this.state.showEditProduct && <ProductModalPage show={true} Product={this.state.productToEditOrDelete}/>}
+                {this.state.showEditProduct && <ProductModalPage show={true} Product={this.state.productToEditOrGenerateBarCodeOrDelete}/>}
             </div>
         </div>)
     }
@@ -65,15 +68,15 @@ export default class Prodcut extends React.Component {
         });
     }
 
-    handleEditOrDelete = (Product,rowId) => { 
+    handleEditOrGenerateBarcodeOrDelete = (Product,rowId) => { 
         this.setState({
-            productToEditOrDelete : Product,
+            productToEditOrGenerateBarCodeOrDelete : Product,
             highLightSelectedRow : rowId
         })
     }
 
     handleEdit = () => { 
-        if(this.state.productToEditOrDelete.id == 0){
+        if(this.state.productToEditOrGenerateBarCodeOrDelete.id == 0){
             alert("please select a Product to edit")
         }
         else{
@@ -84,16 +87,24 @@ export default class Prodcut extends React.Component {
     }
 
     handleDelete = () => { 
-        console.log("this.state.productToEditOrDelete ::",this.state.productToEditOrDelete)
-        if(this.state.productToEditOrDelete.id == 0){
+        console.log("this.state.productToEditOrGenerateBarCodeOrDelete ::",this.state.productToEditOrGenerateBarCodeOrDelete)
+        if(this.state.productToEditOrGenerateBarCodeOrDelete.id == 0){
             alert("please select a Product to delete")
         }
         else{
-         deleteProductService(this.state.productToEditOrDelete.productId);
+         deleteProductService(this.state.productToEditOrGenerateBarCodeOrDelete.productId);
     }
     }
 
-
+    handleGenerateBarCode = () => {
+        console.log("this.state.productToEditOrGenerateBarCodeOrDelete ::",this.state.productToEditOrGenerateBarCodeOrDelete)
+        if(this.state.productToEditOrGenerateBarCodeOrDelete.id == 0){
+            alert("please select a Product to generate barcode")
+        } else{
+           const value = 'jdrMart'+this.state.productToEditOrGenerateBarCodeOrDelete.productId;
+           withMyHook();
+        }
+    }
 
     ProductTable = ({ cols, data }) => {
         return (
@@ -107,6 +118,9 @@ export default class Prodcut extends React.Component {
                     <span>
                 <Button variant="primary" onClick={this.handleEdit} className='custom-btn'>
                     Edit
+                </Button>
+                <Button variant="primary" onClick={this.handleGenerateBarCode} className='custom-btn'>
+                    Generate BarCode
                 </Button>
                 </span>
                 <span>
@@ -126,7 +140,7 @@ export default class Prodcut extends React.Component {
                     <tbody>
                         {data != undefined && data.length > 0 && data.map((product,rowId) => {
                             return <tr key={rowId} onClick={() =>
-                                this.handleEditOrDelete(product,rowId)} className={this.state.highLightSelectedRow === rowId ? "tableSelected" : ""}>
+                                this.handleEditOrGenerateBarcodeOrDelete(product,rowId)} className={this.state.highLightSelectedRow === rowId ? "tableSelected" : ""}>
                                     {cols.map(col => <td>{product[col]}</td>)}</tr>
                         })
                         }
@@ -135,4 +149,19 @@ export default class Prodcut extends React.Component {
             </div>
         )
     }
+
+   
 }
+ const withHook = (Component, useHook, hookName = 'hookvalue') => {
+        return function WrappedComponent(props) {
+          const hookValue = useHook();
+          return <Component {...props} {...{[hookName]: hookValue}} />;
+        };
+      };
+    
+      class MyComponent extends React.Component {
+        render(){
+          const myUseHookValue = this.props.myUseHookValue;
+          return <div>{myUseHookValue}</div>;
+        }
+      }

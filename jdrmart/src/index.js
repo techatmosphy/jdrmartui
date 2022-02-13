@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Header from './components/Header';
 import Footer from './components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
+import Header from './pages/Header'
 
 ReactDOM.render(
 
@@ -13,10 +13,8 @@ ReactDOM.render(
   <div className='App-header'><Header/></div>
 
         <App />
-    <div className='App-footer'> <Footer/></div>   
-    
-    
-  </div>
+    <div className='App-footer'/> <Footer/></div>   
+  
   ,
   document.getElementById('root')
 );
