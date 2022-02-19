@@ -4,6 +4,7 @@ import { ProductModal } from '../modals/ProductModal';
 import { Table, Button, Form } from 'react-bootstrap';
 import { OrderModal } from '../modals/OrderModal';
 import { createOrderService } from '../service/OrderService';
+import { BarCodeReader } from './BarCode';
 
 export default function Billing() {
     const [products, setProducts] = useState([ProductModal])
@@ -12,8 +13,8 @@ export default function Billing() {
     const [productId, setProductId] = useState()
     const [totalAmount, setTotalAmount] = useState(0)
     const [order, setOrder] = useState(OrderModal)
-    const [mobileNumber,setMobileNumber] = useState()
-    const [message,setMessage] = useState()
+    const [mobileNumber, setMobileNumber] = useState()
+    const [message, setMessage] = useState()
 
     const columns = Object.keys(ProductModal);
 
@@ -33,7 +34,7 @@ export default function Billing() {
     const handleChange = (e) => {
         let p = products.filter(p => p.productId == e.target.value)[0]
         if (p != undefined) {
-            setTotalAmount(totalAmount+p.price)
+            setTotalAmount(totalAmount + p.price)
             setProductsBilled(prev => [...prev, p])
         }
 
@@ -44,22 +45,36 @@ export default function Billing() {
         let ids = []
         productsBilled.forEach(p => ids.push(p.productId))
         const orderReq = {
-            mobileNumber : mobileNumber,
-            totalAmount : totalAmount,
-            productIds : ids
+            mobileNumber: mobileNumber,
+            totalAmount: totalAmount,
+            productIds: ids
         }
         createOrderService(orderReq).then(
-                    response => setMessage(response)
+            response => setMessage(response)
         )
     }
 
     const handleChangeMobileNo = (e) => {
-       setMobileNumber(e.target.value)
+        setMobileNumber(e.target.value)
+    }
+
+    const [barCode,setBarCode] = useState('')
+
+    const updateBarCode = (code) => {
+        setBarCode(code)
+    }
+
+    const handleScan = () => {
+        <BarCodeReader updateBarCode={updateBarCode}/>
     }
 
     return (
         <div>
-            {message}
+            <span>
+                <Button variant="primary" onClick={handleScan} className="custom-btn">
+                    Start Scan
+                </Button>
+            </span>
             <div><input value={productId} onChange={e => handleChange(e)} /></div>
             <div>
                 <label>

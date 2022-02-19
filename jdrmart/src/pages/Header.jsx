@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Navbar,Container,Link,Nav  } from 'react-bootstrap';
+import { Button, Navbar,Container,Link,Nav,Row,Col  } from 'react-bootstrap';
 //import {  Link } from "react-router-dom";
+
 
 export default function Header() {
 
     return (<div>
-        <Navbar bg="light" expand="lg">
-            <Container>
-               <Navbar.Brand href="/categories">Categories</Navbar.Brand>
-                <Navbar.Brand href="/products">Products</Navbar.Brand>
-                <Navbar.Brand href="/billing">Billing</Navbar.Brand>
-            </Container>
-        </Navbar>
+         <div height='80px'>
+            <Container fluid>
+                <Row> 
+                <Col xs={2}>
+                <img 
+                src={`${process.env.PUBLIC_URL}/jdr.JPG`} 
+                alt="logo"
+                className='jdr-logo'
+                /> 
+                </Col>
+                <Col xs={8}>
+                <div className='header-logo'>
+                    JDR Market
+                </div>
+                </Col>
+                <Col xs={2}>
+                <img 
+                src={`${process.env.PUBLIC_URL}/userjdr.JPG`} 
+                alt="logo" className='jdr-user-img'/>  
+                </Col>
+                </Row>
+                </Container>
+</div>
     </div>)
 
 }

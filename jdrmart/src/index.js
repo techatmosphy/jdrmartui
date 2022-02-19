@@ -3,18 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Footer from './components/Footer';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './pages/Header'
+import Footer from './pages/Footer'
 
 ReactDOM.render(
 
-<div>
-  <div className='App-header'><Header/></div>
-
-        <App />
-    <div className='App-footer'/> <Footer/></div>   
-  
+  <div>
+    <div className='App-header'><Header /></div>
+    <div className='App'>
+    <App />
+    </div>
+    <div className='App-footer'> <Footer /></div>
+    </div>
   ,
   document.getElementById('root')
 );

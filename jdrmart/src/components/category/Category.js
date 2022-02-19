@@ -124,7 +124,8 @@ export default class Category extends React.Component {
                     <tbody>
                         {data != undefined && data.length > 0 && data.map((category,rowId) => {
                             return <tr key={rowId} onClick={() =>
-                                this.handleEditOrDelete(category,rowId)} className={this.state.highLightSelectedRow === rowId ? "tableSelected" : ""}>
+                                this.handleEditOrDelete(category,rowId)}
+                                 className={this.state.highLightSelectedRow === rowId ? "tableSelected" : ""}>
                                     {cols.map(col => <td>{category[col]}</td>)}</tr>
                         })
                         }

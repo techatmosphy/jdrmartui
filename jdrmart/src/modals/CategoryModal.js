@@ -1,5 +1,5 @@
 export const CategoryModal = {
-    category_id: 0,
+    category_id: '',
     categoryCode: '',
     description: '',
     name: '',
