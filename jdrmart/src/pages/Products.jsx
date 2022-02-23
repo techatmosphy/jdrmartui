@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { getProducts } from '../service/ProductService'
 import { ProductModal } from '../modals/ProductModal';
 import { Table, Button } from 'react-bootstrap';
-import { BarCodeGenerator } from './BarCode';
+import Barcode from "react-barcode";
+import ReactToPrint from "react-to-print";
 
-import { useReactToPrint } from 'react-to-print';
-import ReactToPrint from 'react-to-print';
 
 export default function Products() {
     const [products, setProducts] = useState([ProductModal])
@@ -13,10 +12,6 @@ export default function Products() {
     const [showProductsTable, setShowProductsTable] = useState(true)
     const [showProductDetail, setShowProductDetail] = useState(true)
     const [product, setProduct] = useState()
-    const componentRef = useRef();
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    });
 
     useEffect(() => {
         async function fetchProducts() {
@@ -28,6 +23,7 @@ export default function Products() {
     }, [])
 
     const columns = Object.keys(ProductModal);
+    const componentRef = useRef();
 
     const handleShowProductDetail = (productParam) => {
         setProduct(productParam)
@@ -35,13 +31,8 @@ export default function Products() {
         setShowProductDetail(true)
     }
 
-    const[inputRef,setInputRef] = useState()
 
-  const  updateInputRef=(updatedRef) =>{
-        setInputRef(updatedRef)
-    }
-  
-    
+
 
     return (
         <div>
@@ -74,11 +65,19 @@ export default function Products() {
                         <div>
                             Product name : {product.name}
                         </div>
-                        <div>
-                            Product barCode : <BarCodeGenerator productCode={product.productCode} 
-                                                />
-                        </div>                    </div>
-
+                        <div style={{ padding: "0.05in" }} ref={componentRef}>
+                            Bar Code :
+                            <Barcode
+                                value={product.productCode}
+                                height="40"
+                                displayValue={true}
+                            />
+                        </div>
+                        <ReactToPrint
+                            trigger={() => <button className="button">Print this out!</button>}
+                            content={() => componentRef.current}
+                        />
+                    </div>
                 }
 
             </div>
@@ -86,3 +85,4 @@ export default function Products() {
 
     )
 }
+

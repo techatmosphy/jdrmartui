@@ -5,6 +5,7 @@ import { Table, Button } from 'react-bootstrap';
 import { deleteCategoryService } from '../service/CategoryService';
 import CategoryModalPage1 from './CategoryModalPage';
 import { RECORD_CREATED, RECORD_UPDATED, RECORD_DELETED, FAILURE_RESPONSE } from "../AppConstants";
+import { Row, Col, Container,Nav } from 'react-bootstrap';
 
 export default function Categories() {
     const [categories, setcategories] = useState([CategoryModal])
@@ -14,7 +15,7 @@ export default function Categories() {
     const [modalHeader, setModalHeader] = useState()
     const [highLightSelectedRow, setHighLightSelectedRow] = useState(-1)
     const [message, setMessage] = useState('')
-    const[cssClassName, setCssClassName] = useState('')
+    const [cssClassName, setCssClassName] = useState('')
 
     useEffect(() => {
         async function fetchcategories() {
@@ -54,20 +55,20 @@ export default function Categories() {
         } else {
             deleteCategoryService(category.category_id).then(
                 responseMsg => {
-                    if(responseMsg === RECORD_DELETED){
-                    async function fetchcategories() {
-                        await getCategories().then((response) => {
-                            setcategories(response)
-                        })
+                    if (responseMsg === RECORD_DELETED) {
+                        async function fetchcategories() {
+                            await getCategories().then((response) => {
+                                setcategories(response)
+                            })
+                        }
+                        fetchcategories();
+                        setCssClassName('display-success')
+                    } else {
+                        setCssClassName('display-error')
                     }
-                    fetchcategories();
-                    setCssClassName('display-success')
-                } else{
-                    setCssClassName('display-error')
-                }
                     setMessage(responseMsg)
                 }
-                
+
             )
         }
     }
@@ -83,21 +84,25 @@ export default function Categories() {
         <div>
             <div>
                 <div className={cssClassName}>{message}</div>
-                <span>
-                    <Button variant="primary" onClick={(e) => handleCreate(e)} className='custom-btn'>
+                <Container fluid className='Record-menu-btns'>
+                    <Row >
+                       <Col>
+                       <Button variant="primary" onClick={(e) => handleCreate(e)} className='custom-btn'>
                         Create
-                    </Button>
-                </span>
-                <span>
-                    <Button variant="primary" onClick={handleEdit} className='custom-btn'>
+                       </Button>
+                        </Col>
+                        <Col>
+                        <Button variant="warning" onClick={handleEdit} className='custom-btn'>
                         Edit
                     </Button>
-                </span>
-                <span>
-                    <Button variant="primary" onClick={handleDelete} className='custom-btn'>
+                        </Col>
+                        <Col >
+                        <Button variant="danger" onClick={handleDelete} className='custom-btn'>
                         Delete
                     </Button>
-                </span>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
             <div>
                 {showcategoriesTable &&

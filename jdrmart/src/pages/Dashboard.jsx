@@ -19,7 +19,7 @@ export default function Dashboard() {
                     <Container fluid>
                         <Row>
                             <span>
-                                <Button variant="primary" onClick={() => handlePageToShow('Billing')} className="custom-btn">
+                                <Button variant="primary" onClick={() => handlePageToShow('Billing')} className="custom-btn" >
                                     Billing
                                 </Button>
                             </span>
@@ -41,6 +41,7 @@ export default function Dashboard() {
 
                     </Container>
                     </Col>
+                    
                 <Col className='dashboard'>
                     <div>
                     {
